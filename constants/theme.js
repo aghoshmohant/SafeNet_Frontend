@@ -10,7 +10,7 @@ export const theme = {
     warning: '#f1c40f',    // Yellow for warnings
   },
   fonts: {
-    regular: 'Roboto-Regular', // Default font
+    regular: 'Poppins-Medium', // Default font
     bold: 'Roboto-Bold',       // Bold font
   },
   fontSizes: {
