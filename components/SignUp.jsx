@@ -14,13 +14,7 @@ const SignUp = (
     }
 ) => {
 
-    const shadowStyle = {
-      shadowColor:'dark',
-      shadowOffset: {width: 0 ,height:10},
-      shadowOpacity:0.2,
-      shadowRadius: 8,
-      elevation:4,
-        }
+    
       
 if(loading){
   return(
@@ -31,7 +25,7 @@ if(loading){
 }
 
   return (
-    <Pressable onPress={onPress} style={[styles.button, buttonStyle, hasShadow && shadowStyle]} >
+    <Pressable onPress={onPress} style={[styles.button, buttonStyle, hasShadow]} >
         <Text style={[styles.text, textStyle]}>{title}</Text>
     </Pressable>
   )
