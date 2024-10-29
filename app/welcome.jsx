@@ -5,10 +5,13 @@ import { StatusBar } from 'expo-status-bar'
 import { hp, wp } from '../helper/common'
 import SignIn from '../components/SignIn'
 import SignUp from '../components/SignUp'
+import { useRouter } from 'expo-router'
 
 
 
 const welcome = () => {
+
+  const router = useRouter();
   return (
     <ScreenWrapper bg="white">
       <StatusBar style='dark' />
@@ -24,13 +27,13 @@ const welcome = () => {
           <SignIn
            title='Sign In'
            buttonStyle={{marginHorizontal:wp(3)}}
-           onPress={()=>{}
+           onPress={()=>router.push('login')
           }
            />
            <SignUp
            title='Create Account'
            buttonStyle={{marginHorizontal:wp(3)}}
-           onPress={()=>{}} />
+           onPress={()=>router.push('signup')} />
         </View>
       </View>
     </ScreenWrapper>
