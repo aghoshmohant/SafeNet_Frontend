@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, Button} from 'react-native'
 import React from 'react'
 import ScreenWrapper from '../components/ScreenWrapper'
 import { useRouter } from 'expo-router'
@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar'
 import BackButton from '../components/BackButton'
 import { hp, wp } from '../helper/common'
 import Input from '../components/Input'
+
 
 
 
@@ -24,10 +25,10 @@ const login = () => {
           <Text style={styles.welcomeText}>Hi, Welcome👋</Text>
         </View>
 
-        <View style={styles.form}>
-          <Input placeholder='Email Address'
-          onChangeText={value=>{}}
-          />
+        <View>
+          <Input placeholder='Email'/>
+          <Input secureTextEntry={true}
+          placeholder='Password'/>
         </View>
       </View> 
     </ScreenWrapper>
@@ -55,5 +56,10 @@ const styles = StyleSheet.create({
   },
   form:{
     color:'red',
-  }
+  },
+  email:{
+    paddingTop:55,
+    marginLeft:30
+  },
+
 })
