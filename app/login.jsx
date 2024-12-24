@@ -36,7 +36,7 @@ const login = () => {
           </View>
           <View style={styles.inp}>
             <Text style={styles.text}>Password</Text>
-          <Input placeholder='Password'/>
+          <Input placeholder='Password' secureTextEntry={true}/>
           
           </View>
           <View style={styles.button}>
