@@ -72,6 +72,11 @@ const signup = () => {
             </View>
 
             <View style={styles.inp}>
+              <Text style={styles.text}>State</Text>
+              <Input placeholder="State" />
+            </View>
+
+            <View style={styles.inp}>
               <Text style={styles.text}>Date Of Birth</Text>
 
               {showPicker && (
@@ -98,7 +103,7 @@ const signup = () => {
               <Checkbox value={isSelected}
                onValueChange={setSelection} 
                style={styles.checkbox} />
-              <Text style={styles.checkboxText}>If are you are ready to donate blood</Text>
+              <Text style={styles.checkboxText}>Are you are ready to donate blood</Text>
             </View>
 
             <View style={styles.inp}>
