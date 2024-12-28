@@ -1,5 +1,5 @@
-import { Image, Pressable, StyleSheet, Text, View, } from 'react-native'
-import React from 'react'
+import { Alert, Image, Pressable, StyleSheet, Text, View, } from 'react-native'
+import React, { useRef, useState } from 'react'
 import ScreenWrapper from '../components/ScreenWrapper'
 import { useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -13,6 +13,18 @@ import signup from './signup'
 
 const login = () => {
   const router = useRouter();
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+
+const onSubmit = ()=>{
+
+  if (!emailRef.current || !passwordRef.current) {
+    Alert.alert('Login',"Please fill all the fields!");
+    return;
+  }
+
+}
+
   return (
     <ScreenWrapper>
       <StatusBar style='dark'/>
@@ -31,16 +43,18 @@ const login = () => {
           <View style={styles.inp}>
             <Text style={styles.text}>Email</Text>
           <Input placeholder='Email Address' 
-          onChangeText={value=>{}}
+          onChangeText={value=> emailRef.current = value}
           />
           </View>
           <View style={styles.inp}>
             <Text style={styles.text}>Password</Text>
-          <Input placeholder='Password' secureTextEntry={true}/>
+          <Input placeholder='Password' secureTextEntry={true}
+          onChangeText = {value=>passwordRef.current = value}
+          />
           
           </View>
           <View style={styles.button}>
-          <SignIn title='Submit'/>
+          <SignIn title='Submit' onPress={onSubmit}/>
           </View>
         </View>
 
