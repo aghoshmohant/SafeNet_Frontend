@@ -11,6 +11,9 @@ const index = () => {
     <ScreenWrapper>
       <Text>index</Text>
       <Button title="Welcome" onPress={()=> router.push('welcome')} />
+        <Button title="Organization" onPress={()=>router.push("organization")} />
+        <Button title="Vehicle" onPress={()=>router.push("vehicle")} />
+        <Button title="Disaster" onPress={()=>router.push("disaster")} />
     </ScreenWrapper>
   )
 }
