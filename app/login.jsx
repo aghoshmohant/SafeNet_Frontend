@@ -7,7 +7,7 @@ import BackButton from '../components/BackButton'
 import { hp, wp } from '../helper/common'
 import Input from '../components/Input'
 import SignIn from '../components/SignIn'
-import signup from './signup'
+
 
 
 

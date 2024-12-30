@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
     color: 'red',
     paddingTop: 20,
   },
-  inp: {
-    marginTop: 25,
+  inp:{
+    marginTop:25,
   },
   button: {
     paddingTop: 35,
