@@ -53,7 +53,6 @@ const disaster = () => {
   return (
     <ScreenWrapper>
       <StatusBar style="dark" />
-      <ScrollView>
       <View style={styles.container}>
         <View style={styles.header}>
           <BackButton router={router} />
@@ -113,7 +112,6 @@ const disaster = () => {
 
         </View>
       </View>
-      </ScrollView>
     </ScreenWrapper>
   );
 };
@@ -164,8 +162,8 @@ const styles = StyleSheet.create({
         borderCurve:'continuous',
         borderRadius:10,
         marginTop: 35,
-        marginLeft: 10,
-        marginRight: 10,
+        marginLeft: 50,
+        marginRight: 50,
         
 
   },

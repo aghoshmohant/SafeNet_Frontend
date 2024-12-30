@@ -14,6 +14,8 @@ const index = () => {
         <Button title="Organization" onPress={()=>router.push("organization")} />
         <Button title="Vehicle" onPress={()=>router.push("vehicle")} />
         <Button title="Disaster" onPress={()=>router.push("disaster")} />
+        <Button title="Volunteer" onPress={()=>router.push("volunteer")} />
+          
     </ScreenWrapper>
   )
 }
