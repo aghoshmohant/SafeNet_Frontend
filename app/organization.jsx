@@ -11,19 +11,8 @@ import SignIn from '../components/SignIn'
 
 
 
-const login = () => {
+const organization = () => {
   const router = useRouter();
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
-
-const onSubmit = ()=>{
-
-  if (!emailRef.current || !passwordRef.current) {
-    Alert.alert('Login',"Please fill all the fields!");
-    return;
-  }
-
-}
 
   return (
     <ScreenWrapper>
@@ -34,42 +23,48 @@ const onSubmit = ()=>{
           <Image resizeMode='contain' source={require('../assets/images/SafeNetText.png')} style={styles.logo}/>
         </View>
 
-        <View>
-          <Text style={styles.welcomeText}>Hi, Welcome👋</Text>
-        </View>
-
         <View style={styles.form}>
 
           <View style={styles.inp}>
-            <Text style={styles.text}>Email</Text>
-          <Input placeholder='Email Address' 
-          onChangeText={value=> emailRef.current = value}
+            <Text style={styles.text}>Organization Name</Text>
+          <Input placeholder='Organization Name' 
           />
           </View>
           <View style={styles.inp}>
-            <Text style={styles.text}>Password</Text>
-          <Input placeholder='Password' secureTextEntry={true}
-          onChangeText = {value=>passwordRef.current = value}
+            <Text style={styles.text}>Phone Number</Text>
+          <Input placeholder='Phone Number' 
           />
-          
+          </View>
+
+          <View style={styles.inp}>
+            <Text style={styles.text}>Email</Text>
+          <Input placeholder='Email' 
+          />
+          </View>
+
+          <View style={styles.inp}>
+            <Text style={styles.text}>District</Text>
+          <Input placeholder='District' 
+          />
+          </View>
+
+          <View style={styles.inp}>
+            <Text style={styles.text}>State</Text>
+          <Input placeholder='State' 
+          />
           </View>
           <View style={styles.button}>
-          <SignIn title='Submit' onPress={onSubmit}/>
+          <SignIn title='Submit' />
           </View>
         </View>
 
-        <View style={styles.footer}>
-        <Text style={styles.signupText}>Don't have an account? </Text>
-        <Pressable onPress={()=>router.push('signup')}>
-              <Text style={[styles.signupText,{color:'green'}]}>Sign Up</Text>
-       </Pressable>
-        </View>
+        
       </View> 
     </ScreenWrapper>
   )
 }
 
-export default login
+export default organization
 
 const styles = StyleSheet.create({
   header:{

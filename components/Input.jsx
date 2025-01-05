@@ -18,17 +18,16 @@ export default Input
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
-        height:hp(7.2),
+        height:hp(7),
         justifyContent:'center',
         alignItems:'center',
         borderWidth:0.4,
         borderColor:'black',
         borderRadius:10,
         borderCurve:'continuous',
-        marginHorizontal:18,
-        marginTop:20,
+        marginHorizontal:15,
+        marginTop:0,
         paddingLeft:10,
-        gap:12,
-        
+        gap:12,  
     }
 })
