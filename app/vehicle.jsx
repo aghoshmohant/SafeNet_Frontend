@@ -27,6 +27,9 @@ const vehicle = () => {
           <Image resizeMode='contain' source={require('../assets/images/SafeNetText.png')} style={styles.logo}/>
         </View>
 
+        <View>
+            <Text style={styles.Heading}>Vehicle Registration</Text>
+        </View>
         <View style={styles.form}>
 
           <View style={styles.inp}>
@@ -111,6 +114,14 @@ const styles = StyleSheet.create({
   logo:{
     width: wp(25), // Adjust width of the logo
     height: hp(5),
+  },
+  Heading:{
+    fontSize:hp(3),
+    fontWeight:'bold',
+    paddingTop:50,
+    textAlign:'center',
+    textDecorationLine:'underline'
+    
   },
   
   form:{

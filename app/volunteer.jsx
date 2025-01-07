@@ -60,7 +60,10 @@ const volunteer = () => {
           <BackButton router={router} />
           <Image resizeMode="contain" source={require('../assets/images/SafeNetText.png')} style={styles.logo} />
         </View>
-
+          
+          <View>
+            <Text style={styles.Heading}>Volunteer Registration</Text>
+          </View>
         <View style={styles.form}>
         <View style={styles.inp}>
           <Text style={styles.text}>Prefered Role</Text>
@@ -117,6 +120,14 @@ const styles = StyleSheet.create({
   logo: {
     width: wp(25),
     height: hp(5),
+  },
+  Heading:{
+    fontSize:hp(3),
+    fontWeight:'bold',
+    paddingTop:50,
+    textAlign:'center',
+    textDecorationLine:'underline'
+    
   },
   form: {
     color: 'red',
