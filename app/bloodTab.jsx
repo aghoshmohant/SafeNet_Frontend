@@ -31,7 +31,7 @@ const bloodTab = () => {
               <Text style={styles.text}>Find Donor</Text>
           </View>
           </Pressable>
-          <Pressable onPress={()=>router.push('')} style={({ pressed }) => [
+          <Pressable onPress={()=>router.push('bloodBank')} style={({ pressed }) => [
               styles.icon,
               pressed && { opacity: 0.5 },
             ]}>
