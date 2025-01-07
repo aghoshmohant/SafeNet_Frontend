@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems:'center',  
   },
   logo:{
-    width: wp(25), // Adjust width of the logo
+    width: wp(25),
     height: hp(5),
   },
   welcomeText:{

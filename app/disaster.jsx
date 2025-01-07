@@ -18,7 +18,7 @@ const disaster = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [16, 9],
+      aspect: [1,1],
       quality: 1,
     });
 
@@ -53,12 +53,15 @@ const disaster = () => {
   return (
     <ScreenWrapper>
       <StatusBar style="dark" />
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.header}>
           <BackButton router={router} />
           <Image resizeMode="contain" source={require('../assets/images/SafeNetText.png')} style={styles.logo} />
         </View>
-
+          <View>
+            <Text style={styles.Heading}>Report Disaster</Text>
+          </View>
         <View style={styles.form}>
           <View style={styles.inp}>
             <Text style={styles.text}>Disaster Type</Text>
@@ -112,6 +115,7 @@ const disaster = () => {
 
         </View>
       </View>
+      </ScrollView>
     </ScreenWrapper>
   );
 };
@@ -129,10 +133,19 @@ const styles = StyleSheet.create({
     width: wp(25),
     height: hp(5),
   },
+  Heading:{
+    fontSize:hp(3),
+    fontWeight:'bold',
+    paddingTop:50,
+    textAlign:'center',
+    textDecorationLine:'underline'
+    
+  },
   form: {
     color: 'red',
     paddingTop: 20,
   },
+
   btn: {
     paddingTop: 35,
     paddingLeft: 10,
