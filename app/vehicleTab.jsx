@@ -23,12 +23,18 @@ const vehicleTab = () => {
             </View>
           </View>
           <View style={styles.body}>
-            <Pressable>
+            <Pressable onPress={()=>router.push('vehicle')} style={({ pressed }) => [
+              styles.icon,
+              pressed && { opacity: 0.5 },
+            ]}>
             <View style={styles.box}>
               <Text style={styles.text}>Vehicle Registration</Text>
           </View>
           </Pressable>
-          <Pressable>
+          <Pressable onPress={()=>router.push('')} style={({ pressed }) => [
+              styles.icon,
+              pressed && { opacity: 0.5 },
+            ]}>
             <View style={styles.box}>
               <Text style={styles.text}>Vehicle List</Text>
           </View>

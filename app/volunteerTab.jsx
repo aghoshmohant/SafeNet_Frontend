@@ -23,17 +23,26 @@ const volunteerTab = () => {
             </View>
           </View>
           <View style={styles.body}>
-            <Pressable>
+            <Pressable onPress={()=>router.push('volunteer')} style={({ pressed }) => [
+              styles.icon,
+              pressed && { opacity: 0.5 },
+            ]}>
             <View style={styles.box}>
               <Text style={styles.text}>Volunteer Registration</Text>
           </View>
           </Pressable>
-          <Pressable>
+          <Pressable onPress={()=>router.push('organization')} style={({ pressed }) => [
+              styles.icon,
+              pressed && { opacity: 0.5 },
+            ]}>
             <View style={styles.box}>
               <Text style={styles.text}>Organization Registration</Text>
           </View>
           </Pressable>
-          <Pressable>
+          <Pressable onPress={()=>router.push('')} style={({ pressed }) => [
+              styles.icon,
+              pressed && { opacity: 0.5 },
+            ]}>
             <View style={styles.box}>
               <Text style={styles.text}>Organization</Text>
             </View>

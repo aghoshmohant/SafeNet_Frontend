@@ -23,13 +23,19 @@ const disasterTab = () => {
             </View>
           </View>
           <View style={styles.body}>
-            <Pressable>
+            <Pressable onPress={()=>router.push('disaster')} style={({ pressed }) => [
+              styles.icon,
+              pressed && { opacity: 0.5 },
+            ]}>
             <View style={styles.box}>
               <Text style={styles.text}>Report Disaster</Text>
           </View>
           </Pressable>
 
-          <Pressable>
+          <Pressable onPress={()=>router.push('')} style={({ pressed }) => [
+              styles.icon,
+              pressed && { opacity: 0.5 },
+            ]}>
             <View style={styles.box}>
               <Text style={styles.text}>Disaster List</Text>
             </View>
