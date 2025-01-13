@@ -10,36 +10,36 @@ import { useRouter } from 'expo-router';
 
 const guidelines = [
   {
-    title: 'Identify Critical Applications',
-    description: 'Determine which applications are essential for your business operations. Focus on these applications during the recovery process.',
+    title: 'Stay Informed:',
+    description: 'Listen to a portable, battery-powered radio or television for warnings, emergency alerts, and instructions from local authorities. Ensure you have a battery-powered radio in your survival kit, which may also include multiple power sources like batteries, solar panels, or a hand crank.',
   },
   {
-    title: 'Establish Recovery Time Objective (RTO)',
-    description: 'Define the maximum acceptable time your critical applications can be down. This helps prioritize recovery efforts.',
+    title: 'Evacuate if Ordered:',
+    description: 'If local authorities order an evacuation, leave immediately. Follow the recommended evacuation routes and avoid using shortcuts.',
   },
   {
-    title: 'Define Recovery Point Objective (RPO)',
-    description: 'Specify the acceptable amount of data loss measured in time. This helps in deciding how far back to restore data.',
+    title: 'Stay in a Safe Area:',
+    description: ' If you are not ordered to evacuate, stay in a safe area or shelter during the disaster. In your home, a safe area may be a ground floor interior room, closet, or bathroom.',
   },
   {
-    title: 'Create a Communication Plan',
-    description: 'Develop a strategy for internal and external communication, including alerts and updates for employees and informing clients or stakeholders.',
+    title: 'Have a Survival Kit',
+    description: 'Prepare a survival kit that includes essential items such as water, food, first aid supplies, flashlights, batteries, and other necessities. Ensure your kit is accessible and can sustain you for several days.',
   },
   {
-    title: 'Test the DRP Regularly',
-    description: 'Regular testing of the disaster recovery plan helps identify deficiencies and ensures the plan remains effective and up-to-date.',
+    title: 'Avoid Hazardous Areas:',
+    description: 'Stay away from downed power lines, flooded areas, and damaged structures. Do not venture out unless it is absolutely necessary.',
   },
   {
-    title: 'Document and Store the Plan Securely',
-    description: 'Keep detailed documentation of the DRP in a secure, accessible location. Include roles, recovery procedures, and contact information for key personnel.',
+    title: 'Follow Official Instructions:',
+    description: 'Adhere to instructions from local authorities and emergency services. Do not re-enter buildings or affected areas until they are declared safe by officials.',
   },
   {
-    title: 'Involve All Levels of Employees',
-    description: 'Engage employees from all levels in planning and testing to increase effectiveness and ensure everyone knows their role during a disaster.',
+    title: 'Prepare for Post-Disaster Needs: ',
+    description: 'After the disaster, be prepared for potential disruptions in services like water, electricity, and gas. Have a plan for obtaining necessary supplies and services.',
   },
   {
-    title: 'Virtualized Environment',
-    description: 'Use virtualization to efficiently spin up new instances of applications quickly and provide high availability during recovery.',
+    title: 'Support Recovery Efforts: ',
+    description: 'Assist in recovery efforts by volunteering, donating to relief organizations, and supporting affected communities.',
   },
   {
     title: 'Network Recovery',
@@ -49,6 +49,38 @@ const guidelines = [
     title: 'Cloud Disaster Recovery',
     description: 'Utilize cloud services for backup and replication, offering scalable solutions for application recovery.',
   },
+  {
+     title: 'National Preparedness System',
+    description: 'This system, as outlined by DHS/FEMA, involves a continuous cycle of planning, organizing, training, equipping, exercising, evaluating, and taking corrective action to ensure effective coordination during incident response.',
+  },
+  { 
+    title: 'Strategic and Operational Planning',
+    description: 'Establishing priorities, identifying expected levels of performance and capability requirements, and providing standards for assessing capabilities are crucial for managing the entire life cycle of a potential crisis.'
+  },
+  {
+    title: 'Private-Public Partnerships (P3) Guide',
+    description: 'This guide provides best practices for establishing and maintaining partnerships to help coordinate mitigation, response, and recovery planning and preparedness, increasing community resilience.'
+  },
+  {
+    title: 'Climate Adaptation',
+    description: 'Incorporating climate adaptation into emergency management planning efforts is vital, and guides like the one provided by FEMA can help emergency managers understand how to do this effectively.'
+  },
+  {
+    title: 'Cyber Incident Preparedness',
+    description: "With the increasing risk of cyber incidents, guidance like the 'Planning Considerations for Cyber Incidents: Guidance for Emergency Managers Guide' can help emergency managers prepare for and respond to such incidents."
+  },
+  {
+    title: 'Hazardous Materials Incident Preparedness',
+    description: 'Providing officials with information and resources on hazardous materials, incident preparedness, and response practices can increase community resilience to these incidents.'
+  },
+  {
+    title: 'Threat and Hazard Identification and Risk Assessment (THIRA)',
+    description: 'Conducting a THIRA and Stakeholder Preparedness Review (SPR) can help planners examine threats or hazards and produce integrated, coordinated, and synchronized plans.'
+  },
+  {
+    title: 'Emergency Operations Planning',
+    description: 'Guides like CPG 101, CPG 201, and CPG 502 provide valuable information on developing emergency operations plans, promoting a common understanding of the fundamentals of community-based, risk-informed planning and decision making.'
+  }
 ];
 
 const safeguide = () => {
@@ -100,7 +132,6 @@ const safeguide = () => {
           {filteredGuidelines.map((item, index) => (
             <View key={index} style={styles.card}>
               <Text style={styles.definitionTitle}>{item.title}</Text>
-              <View style={{ height: 10 }} />
               <Text style={styles.definitionDescription}>{item.description}</Text>
             </View>
           ))}
@@ -153,6 +184,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 16,
   },
+  card: {
+    marginBottom: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: 20, // Curved corners
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+    borderWidth: 2,
+    borderColor: '#ff4d4d', // Red border
+  },
   definitionContainer: {
     marginBottom: 20,
     backgroundColor: '#ffffff',
@@ -168,12 +212,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
+    marginBottom: 0,
   },
   definitionDescription: {
     fontSize: 18,
     color: '#555',
     lineHeight: 24,
+    marginTop: 12,// Space between title and description
   },
   noResultText: {
     fontSize: 16,
