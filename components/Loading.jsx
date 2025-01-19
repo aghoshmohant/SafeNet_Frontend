@@ -4,7 +4,7 @@ import React from 'react'
 const Loading = () => {
   return (
     <View style={{justifyContent:'center',alignItems:'center'}}>
-      <ActivityIndicator size={25} color={'green'} />
+      <ActivityIndicator size={25} color={'white'} />
     </View>
   )
 }

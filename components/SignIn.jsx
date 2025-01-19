@@ -24,7 +24,7 @@ const SignIn = (
       
 if(loading){
   return(
-    <View style={[styles.button,buttonStyle, {backgroundColor:'white'}]}>
+    <View style={[styles.button,buttonStyle,]}>
     <Loading />
     </View>
   )
