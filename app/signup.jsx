@@ -1,5 +1,5 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View, Alert  } from 'react-native';
+import React, { useState, useRef } from 'react';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -9,32 +9,112 @@ import Input from '../components/Input';
 import SignIn from '../components/SignIn';
 import Checkbox from 'expo-checkbox';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import axios from '../config/axiosConfig'; // Import your axios instance
+
 
 const signup = () => {
   const router = useRouter();
+
+ // Refs for input fields
+ const nameRef = useRef('');
+ const emailRef = useRef('');
+ const phoneRef = useRef('');
+ const districtRef = useRef('');
+ const stateRef = useRef('');
+ const bloodGroupRef = useRef('');
+ const passwordRef = useRef('');
+
+
   const [date, setDate] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState(''); // State to hold the formatted date
   const [showPicker, setShowPicker] = useState(false);
+  const [isSelected, setSelection] = useState(false);
 
   const toggleDatePicker = () => {
     setShowPicker(!showPicker);
   };
 
-  const onChange = ({ type }, selectedDate) => {
-    if (type === 'set') {
-      const currentDate = selectedDate || date;
-      setDate(currentDate);
-
-      // Format the selected date to display
-      const formatted = currentDate.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
-      setFormattedDate(formatted);
-
-      toggleDatePicker(); // Close the picker after date selection
-    } else {
-      toggleDatePicker();
+  const onChange = (event, selectedDate) => {
+    setShowPicker(false); // Close the picker once a date is selected
+  
+    if (selectedDate) {
+      setDate(selectedDate); // Update the `date` state
+      // Format the selected date (e.g., DD/MM/YYYY)
+      const formatted = `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`;
+      setFormattedDate(formatted); // Update the `formattedDate` state
     }
   };
-  const [isSelected, setSelection] = useState(false);
+
+  const handleSignup = async () => {
+    // Check if any required field is empty
+    if (
+      !nameRef.current ||
+      !emailRef.current ||
+      !passwordRef.current ||
+      !phoneRef.current ||
+      !districtRef.current ||
+      !formattedDate || // Ensure date is formatted and available
+      !stateRef.current ||
+      !bloodGroupRef.current
+    ) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+  
+    // Validate email format
+    if (!/^\S+@\S+\.\S+$/.test(emailRef.current)) {
+      Alert.alert('Error', 'Invalid email format');
+      return;
+    }
+  
+    // Validate phone number
+    if (phoneRef.current.length !== 10 || isNaN(phoneRef.current)) {
+      Alert.alert('Error', 'Phone number must be 10 digits');
+      return;
+    }
+  
+    // Validate password strength
+    if (passwordRef.current.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters');
+      return;
+    }
+  
+    try {
+      // Send signup request
+      const response = await axios.post('/auth/signup', {
+        full_name: nameRef.current,
+        email: emailRef.current,
+        phone_number: phoneRef.current,
+        district: districtRef.current,
+        state: stateRef.current,
+        dob: formattedDate, // Use the formatted date
+        blood_group: bloodGroupRef.current,
+        donate_blood: isSelected, // Donation preference
+        password: passwordRef.current,
+      });
+  
+      // Check response status
+      if (response.status === 201) {
+        Alert.alert('Success', 'Account created successfully!');
+        router.push('/login'); // Navigate to login page
+      } else {
+        Alert.alert('Signup Failed', response.data?.error || 'Something went wrong');
+      }
+    } catch (error) {
+      if (error.response?.status === 400 && error.response?.data?.error === 'User already exists') {
+        Alert.alert('Error', 'An account with this email already exists. Please use a different email.');
+      } else {
+        Alert.alert('Signup Failed', error.response?.data?.error || 'Something went wrong.');
+    }
+  }
+  };
+  
+  
+  
+  
+  
+  
+ 
 
   return (
     <ScreenWrapper>
@@ -53,27 +133,27 @@ const signup = () => {
           <View style={styles.form}>
             <View style={styles.inp}>
               <Text style={styles.text}>Full Name</Text>
-              <Input placeholder="Full Name" />
+              <Input placeholder="Full Name" onChangeText={(value) => (nameRef.current = value)} />
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>Email</Text>
-              <Input placeholder="Email Address" keyboardType="email-address" />
+              <Input placeholder="Email Address" keyboardType="email-address" onChangeText={(value) => (emailRef.current = value)} />
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>Phone Number</Text>
-              <Input placeholder="Phone Number" keyboardType="numeric" />
+              <Input placeholder="Phone Number" keyboardType="numeric" onChangeText={(value) => (phoneRef.current = value)} />
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>District</Text>
-              <Input placeholder="District" />
+              <Input placeholder="District" onChangeText={(value) => (districtRef.current = value)}/>
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>State</Text>
-              <Input placeholder="State" />
+              <Input placeholder="State" onChangeText={(value) => (stateRef.current = value)} />
             </View>
 
             <View style={styles.inp}>
@@ -89,14 +169,14 @@ const signup = () => {
               )}
               {!showPicker && (
                 <Pressable onPress={toggleDatePicker}>
-                  <Input placeholder="Date of Birth" value={formattedDate} editable={false} />
+                  <Input placeholder="Date of Birth" value={formattedDate} editable={false}  />
                 </Pressable>
               )}
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>Blood Group</Text>
-              <Input placeholder="Blood Group" />
+              <Input placeholder="Blood Group" onChangeText={(value) => (bloodGroupRef.current = value)} />
             </View>
 
             <View style={styles.check}>
@@ -108,11 +188,11 @@ const signup = () => {
 
             <View style={styles.inp}>
               <Text style={styles.text}>Password</Text>
-              <Input placeholder="Password" />
+              <Input placeholder="Password" onChangeText={(value) => (passwordRef.current = value)} />
             </View>
 
             <View style={styles.button}>
-              <SignIn title="Submit" />
+              <SignIn title="Submit" onPress={handleSignup}  />
             </View>
           </View>
 
