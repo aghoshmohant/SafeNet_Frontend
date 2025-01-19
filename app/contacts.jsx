@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router';
 
 const contacts = () => {
   const router = useRouter(); // Use the router from expo-router
-
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState([
     { id: '1', name: 'Kerala State Disaster Management Authority (KSDMA)', number: '1070' },
