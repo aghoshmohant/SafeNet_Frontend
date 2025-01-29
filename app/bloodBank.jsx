@@ -110,6 +110,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
+    marginRight:10,
+    marginLeft:5,
   },
   logo: {
     width: wp(25),
