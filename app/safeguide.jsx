@@ -1,121 +1,174 @@
 import { Image, StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { StatusBar } from 'expo-status-bar';
 import { hp, wp } from '../helper/common';
 import BackButton from '../components/BackButton';
 import { useRouter } from 'expo-router';
 
+const safeGuide = {
+  Earthquakes: {
+    tips: [
+      "Move away from all glass and breakable objects",
+      "Identify safe places like door frames or under heavy furniture",
+      "Hide under a strong desk or table, and cover your head and neck",
+      "Stay in a secure location until told it’s safe",
+      "Locate your emergency kit if needed",
+      "Stay in communication with local authorities and disaster responders",
+      "Stay low to the ground to avoid falling debris",
+      "If you're outside, find an open area away from buildings and trees",
+    ],
+  },
+  Wildfires: {
+    tips: [
+      "Remove flammable materials from your home’s exterior, such as leaves and firewood",
+      "Shut off gas systems and secure all fuel sources",
+      "Soak your roof and plants near your building or home if time permits",
+      "Shut all windows and doors",
+      "Follow evacuation directions from city officials and authorities",
+      "Stay connected to the news and monitor the situation",
+      "Stay close to a body of water, stream, or less flammable area like a mountain backside if surrounded",
+      "Wear protective clothing like a long-sleeved shirt and pants",
+      "Use an N95 mask to avoid inhaling smoke and particulates",
+    ],
+  },
+  Floods: {
+    tips: [
+      "Move to higher ground immediately",
+      "Avoid walking or driving through floodwaters",
+      "Turn off gas, electricity, and water before evacuating",
+      "Listen to local warnings and emergency updates",
+      "Do not touch electrical equipment if standing in water",
+      "Keep an emergency supply kit with food, water, and essentials",
+      "Avoid bridges over fast-moving water",
+      "If trapped in a building, move to the highest level but avoid attics",
+    ],
+  },
+  Hurricanes: {
+    tips: [
+      "Stay indoors and away from windows",
+      "Secure all doors and close interior doors",
+      "Move to a small, windowless room on the lowest floor",
+      "Charge mobile devices and keep emergency contacts handy",
+      "Have an emergency supply kit with water, food, and medications",
+      "Evacuate if ordered by local authorities",
+      "Avoid using candles; use flashlights instead",
+      "Do not return home until officials say it’s safe",
+    ],
+  },
+  Tornadoes: {
+    tips: [
+      "Seek shelter in a basement or an interior room on the lowest floor",
+      "Stay away from windows, doors, and outside walls",
+      "Cover yourself with a mattress or heavy blankets for protection",
+      "If in a mobile home, evacuate immediately to a sturdy building",
+      "If caught outdoors, lie flat in a ditch and cover your head",
+      "Do not try to outrun a tornado in a vehicle; seek shelter instead",
+      "Listen to local weather reports for updates",
+    ],
+  },
+  Tsunamis: {
+    tips: [
+      "Move to higher ground immediately if near the coast",
+      "Do not return to low-lying areas until authorities declare it safe",
+      "Follow tsunami evacuation routes posted in coastal areas",
+      "Listen to emergency warnings via radio or mobile alerts",
+      "If you feel an earthquake near the coast, expect a tsunami",
+      "Never go to the shore to watch a tsunami approach",
+      "Avoid rivers and streams that lead to the ocean",
+    ],
+  },
+  Landslides: {
+    tips: [
+      "Move to higher ground away from slopes, cliffs, and riverbanks",
+      "Be alert to unusual sounds like rumbling or cracking noises",
+      "Stay away from areas with recent wildfires or heavy rain",
+      "Watch for sudden changes in water levels in streams or rivers",
+      "Evacuate if local authorities issue warnings",
+      "After a landslide, avoid affected areas due to unstable ground",
+      "Report broken utility lines or infrastructure damage",
+    ],
+  },
+  Blizzards: {
+    tips: [
+      "Stay indoors and keep warm with extra layers of clothing",
+      "Avoid travel unless absolutely necessary",
+      "Keep emergency food, water, and heating supplies on hand",
+      "Watch out for frostbite and hypothermia symptoms",
+      "Use generators outdoors only to avoid carbon monoxide poisoning",
+      "Check on neighbors, especially the elderly and vulnerable",
+      "Keep pets indoors and provide adequate warmth",
+    ],
+  },
+  Heatwaves: {
+    tips: [
+      "Stay hydrated and drink plenty of water",
+      "Avoid outdoor activities during peak heat hours",
+      "Wear light, loose-fitting clothing",
+      "Stay indoors in air-conditioned spaces if possible",
+      "Never leave children or pets in parked vehicles",
+      "Use fans and cool showers to lower body temperature",
+      "Check on elderly relatives and neighbors",
+    ],
+  },
+};
 
 
-const guidelines = [
-  {
-    title: 'Identify Critical Applications',
-    description: 'Determine which applications are essential for your business operations. Focus on these applications during the recovery process.',
-  },
-  {
-    title: 'Establish Recovery Time Objective (RTO)',
-    description: 'Define the maximum acceptable time your critical applications can be down. This helps prioritize recovery efforts.',
-  },
-  {
-    title: 'Define Recovery Point Objective (RPO)',
-    description: 'Specify the acceptable amount of data loss measured in time. This helps in deciding how far back to restore data.',
-  },
-  {
-    title: 'Create a Communication Plan',
-    description: 'Develop a strategy for internal and external communication, including alerts and updates for employees and informing clients or stakeholders.',
-  },
-  {
-    title: 'Test the DRP Regularly',
-    description: 'Regular testing of the disaster recovery plan helps identify deficiencies and ensures the plan remains effective and up-to-date.',
-  },
-  {
-    title: 'Document and Store the Plan Securely',
-    description: 'Keep detailed documentation of the DRP in a secure, accessible location. Include roles, recovery procedures, and contact information for key personnel.',
-  },
-  {
-    title: 'Involve All Levels of Employees',
-    description: 'Engage employees from all levels in planning and testing to increase effectiveness and ensure everyone knows their role during a disaster.',
-  },
-  {
-    title: 'Virtualized Environment',
-    description: 'Use virtualization to efficiently spin up new instances of applications quickly and provide high availability during recovery.',
-  },
-  {
-    title: 'Network Recovery',
-    description: 'For complex networks, develop a step-by-step recovery procedure including information about network performance and staff expertise.',
-  },
-  {
-    title: 'Cloud Disaster Recovery',
-    description: 'Utilize cloud services for backup and replication, offering scalable solutions for application recovery.',
-  },
-];
-
-const safeguide = () => {
+const SafeGuide = () => {
   const router = useRouter();
   const [searchText, setSearchText] = useState('');
-  
-  const handleSearch = () => {
-    if (searchQuery.trim() === '') {
-      Alert.alert('Search', 'Please enter a valid disaster type.');
-    } else {
-      // Perform search logic (e.g., filter results, navigate, or fetch data)
-      Alert.alert('Search', `Searching for: ${searchQuery}`);
-    }
-  };
-  const filterGuidelines = () => {
-    if (!searchText.trim()) return guidelines;
 
-    return guidelines.filter((item) =>
-      item.title.toLowerCase().includes(searchText.toLowerCase())
-    );
+  const filterSafeGuide = () => {
+    if (!searchText.trim()) return safeGuide;
+
+    const filtered = {};
+    Object.keys(safeGuide).forEach((category) => {
+      if (category.toLowerCase().includes(searchText.toLowerCase())) {
+        filtered[category] = safeGuide[category];
+      }
+    });
+
+    return filtered;
   };
 
-  const filteredGuidelines = filterGuidelines();
+  const filteredSafeGuide = filterSafeGuide();
+
   return (
     <ScreenWrapper>
       <StatusBar style="dark" />
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <BackButton router={router} />
-          <Image
-            resizeMode="contain"
-            source={require('../assets/images/SafeNetText.png')}
-            style={styles.logo}
-          />
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <BackButton router={router} />
+            <Image resizeMode="contain" source={require('../assets/images/SafeNetText.png')} style={styles.logo} />
+          </View>
+          <View style={{ padding: 20 }}>
+            <TextInput
+              style={styles.searchBar}
+              placeholder="Search disaster type (e.g., Earthquakes)"
+              value={searchText}
+              onChangeText={(text) => setSearchText(text)}
+            />
+            <ScrollView style={styles.scrollContainer}>
+              {Object.keys(filteredSafeGuide).map((category) => (
+                <View key={category} style={styles.categoryBox}>
+                  <Text style={styles.categoryTitle}>{category}</Text>
+                  {filteredSafeGuide[category].tips.map((item, index) => (
+                    <Text key={`tip-${index}`} style={styles.guidelineText}>
+                      • {item}
+                    </Text>
+                  ))}
+                </View>
+              ))}
+            </ScrollView>
+          </View>
         </View>
-        <Text style={styles.title}>Safe Guidelines During Disaster</Text>
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchBar}
-            placeholder="Search guideline..."
-            value={searchText}
-            onChangeText={(text) => setSearchText(text)}
-          />
-          <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-            <Text style={styles.searchButtonText}>Search</Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView style={styles.scrollContainer}>
-          {filteredGuidelines.map((item, index) => (
-            <View key={index} style={styles.card}>
-              <Text style={styles.definitionTitle}>{item.title}</Text>
-              <View style={{ height: 10 }} />
-              <Text style={styles.definitionDescription}>{item.description}</Text>
-            </View>
-          ))}
-          {filteredGuidelines.length === 0 && (
-            <Text style={styles.noResultText}>
-              No guidelines found for "{searchText}".
-            </Text>
-          )}
-        </ScrollView>
-      </View>
+      </ScrollView>
     </ScreenWrapper>
   );
 };
 
-export default safeguide;
+export default SafeGuide;
 
 const styles = StyleSheet.create({
   container: {
@@ -132,18 +185,8 @@ const styles = StyleSheet.create({
     width: wp(25),
     height: hp(5),
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginTop: 20,
-    textAlign: 'center',
-  },
-  searchContainer: {
-    marginHorizontal: 16,
-    marginTop: 15,
-  },
   searchBar: {
+    marginTop: 15,
     padding: 10,
     borderRadius: 8,
     backgroundColor: '#eaeaea',
@@ -151,37 +194,28 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     marginTop: 20,
-    paddingHorizontal: 16,
   },
-  definitionContainer: {
-    marginBottom: 20,
+  categoryBox: {
     backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
+    padding: 20,
+    marginVertical: 10,
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
   },
-  definitionTitle: {
-    fontSize: 32,
+  categoryTitle: {
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
+    marginBottom: 10,
   },
-  definitionDescription: {
-    fontSize: 18,
-    color: '#555',
-    lineHeight: 24,
-  },
-  noResultText: {
+  guidelineText: {
     fontSize: 16,
-    color: '#999',
-    textAlign: 'center',
-    marginTop: 20,
+    color: '#555',
+    marginLeft: 10,
+    marginVertical: 5,
   },
 });
-
-
-
