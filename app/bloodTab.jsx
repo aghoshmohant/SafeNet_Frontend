@@ -23,7 +23,7 @@ const bloodTab = () => {
             </View>
           </View>
           <View style={styles.body}>
-            <Pressable onPress={()=>router.push('')} style={({ pressed }) => [
+            <Pressable onPress={()=>router.push('bloodDonor')} style={({ pressed }) => [
               styles.icon,
               pressed && { opacity: 0.5 },
             ]}>
@@ -53,7 +53,10 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent:'space-between',
       width: wp(100),
-      alignItems:'center',  
+      alignItems:'center',
+      marginRight:10,
+      marginLeft:5, 
+       
     },
     des:{
       fontWeight:'bold',
