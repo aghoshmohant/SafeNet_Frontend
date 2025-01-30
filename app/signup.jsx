@@ -68,7 +68,7 @@ const signup = () => {
               <Input placeholder="Phone Number" keyboardType="numeric" />
             </View>
 
-            <View style={styles.inp}>
+          <View style={styles.inp}>
           <Text style={styles.text}>District</Text>
           <View style={styles.pic}>
           <Picker
