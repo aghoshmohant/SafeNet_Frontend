@@ -7,14 +7,14 @@ import { useRouter } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
 
 const bloodDonor = () => {
-  // Declare donors array here
+  // Declare donors array without the state field
   const donors = [
-    { name: 'John Doe', phone: '9876543210', bloodGroup: 'O+', district: 'Manhattan', state: 'New York' },
-    { name: 'Alice Johnson', phone: '9123456789', bloodGroup: 'A-', district: 'Downtown', state: 'California' },
-    { name: 'Michael Smith', phone: '9012345678', bloodGroup: 'B+', district: 'South Side', state: 'Illinois' },
-    { name: 'Emma Davis', phone: '9871234567', bloodGroup: 'AB-', district: 'East End', state: 'Texas' },
-    { name: 'Robert Wilson', phone: '9543216789', bloodGroup: 'O-', district: 'North Gate', state: 'Arizona' },
-    { name: 'Sophia Martinez', phone: '9687456321', bloodGroup: 'A+', district: 'West Village', state: 'Pennsylvania' },
+    { name: 'John Doe', phone: '9876543210', bloodGroup: 'O+', district: 'Manhattan' },
+    { name: 'Alice Johnson', phone: '9123456789', bloodGroup: 'A-', district: 'Downtown' },
+    { name: 'Michael Smith', phone: '9012345678', bloodGroup: 'B+', district: 'South Side' },
+    { name: 'Emma Davis', phone: '9871234567', bloodGroup: 'AB-', district: 'East End' },
+    { name: 'Robert Wilson', phone: '9543216789', bloodGroup: 'O-', district: 'North Gate' },
+    { name: 'Sophia Martinez', phone: '9687456321', bloodGroup: 'A+', district: 'West Village' },
   ];
 
   const router = useRouter();
@@ -22,14 +22,10 @@ const bloodDonor = () => {
   const [selectedBloodGroup, setSelectedBloodGroup] = useState('');
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
-  // Filter donors based on district, state, and blood group
+  // Filter donors based on district and blood group
   const filterDonors = () => {
     return donors.filter((donor) =>
-      (
-        donor.district.toLowerCase().includes(searchText.toLowerCase()) || 
-        donor.state.toLowerCase().includes(searchText.toLowerCase()) || 
-        searchText === ''
-      ) &&
+      donor.district.toLowerCase().includes(searchText.toLowerCase()) &&
       (donor.bloodGroup === selectedBloodGroup || selectedBloodGroup === '')
     );
   };
@@ -52,7 +48,7 @@ const bloodDonor = () => {
             <View style={styles.searchAndFilterContainer}>
               <TextInput
                 style={styles.searchBar}
-                placeholder="Search by District or State"
+                placeholder="Search by District"
                 value={searchText}
                 onChangeText={(text) => setSearchText(text)}
               />
@@ -70,7 +66,6 @@ const bloodDonor = () => {
                     <Text style={styles.donorName}>{donor.name}</Text>
                     <Text style={[styles.donorDetails, styles.bloodGroup]}>Blood Group: {donor.bloodGroup}</Text>
                     <Text style={styles.donorDetails}>District: {donor.district}</Text>
-                    <Text style={styles.donorDetails}>State: {donor.state}</Text>
                     <Text style={styles.donorDetails}>{donor.phone}</Text>
                   </View>
                   <TouchableOpacity style={styles.callButton} onPress={() => handleCall(donor.phone)}>
@@ -145,8 +140,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   safeNetTextImage: {
-    width: 100, 
-    height: 40,  
+    width: 100,
+    height: 40,
     resizeMode: 'contain',
   },
   searchAndFilterContainer: {
@@ -156,7 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#eaeaea',
     paddingHorizontal: 10,
-    justifyContent: 'center', // Center the search bar horizontally
+    justifyContent: 'center',
   },
   filterIcon: {
     width: 30,
@@ -168,7 +163,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     fontSize: 16,
-  
   },
   listContainer: {
     marginTop: 10,
