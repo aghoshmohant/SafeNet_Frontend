@@ -31,7 +31,7 @@ const vehicleTab = () => {
               <Text style={styles.text}>Vehicle Registration</Text>
           </View>
           </Pressable>
-          <Pressable onPress={()=>router.push('')} style={({ pressed }) => [
+          <Pressable onPress={()=>router.push('vehicleList')} style={({ pressed }) => [
               styles.icon,
               pressed && { opacity: 0.5 },
             ]}>
