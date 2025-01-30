@@ -8,7 +8,7 @@ import { hp, wp } from '../helper/common'
 import Input from '../components/Input'
 import SignIn from '../components/SignIn'
 import { Picker } from '@react-native-picker/picker'
-
+import axios from '../config/axiosConfig'
 
 
 
