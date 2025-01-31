@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         borderColor:'#2E7039',
         borderWidth:1.5,
         height:hp(6),
+        width:wp(),
         justifyContent:'center',
         alignItems:'center',
         borderCurve:'continuous',
