@@ -1,5 +1,5 @@
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, { useState,useRef } from 'react';
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -14,24 +14,16 @@ const Vehicle = () => {
   const router = useRouter();
 
   // State for form fields
-const ownerNameRef = useRef('');
- const vehicleTypeRef = useRef('');
- const vehicleModelRef = useRef('');
- const phoneNumberRef = useRef('');
- const emailRef = useRef('');
- const districtRef = useRef('');
-
-
+  const [ownerName, setOwnerName] = useState('');
+  const [vehicleType, setVehicleType] = useState('');
+  const [vehicleModel, setVehicleModel] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [district, setDistrict] = useState('');
 
   const handleVehicle = async () => {
     // Validate required fields
-    if (!ownerNameRef.current ||
-       !vehicleTypeRef.current ||
-        !vehicleModelRef.current ||
-         !phoneNumberRef.current ||
-          !emailRef.current ||
-           !districtRef.current
-          ) {
+    if (!ownerName || !vehicleType || !vehicleModel || !phoneNumber || !email || !district) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
@@ -47,27 +39,28 @@ const ownerNameRef = useRef('');
       Alert.alert('Error', 'Phone number must be exactly 10 digits');
       return;
     }
-    
 
     try {
       // Send registration request
-      const response = await axios.post('/api/vehicle', {
-        owner_name: ownerNameRef.current,
-        vehicle_type: vehicleTypeRef.current,
-        vehicle_model: vehicleModelRef.current,
-        phone_number: phoneNumberRef.current,
-        email:emailRef.current,
-        district:districtRef.current,
+      const response = await axios.post('http://192.168.17.34:5000/api/vehicle', {
+        owner_name: ownerName,
+        vehicle_type: vehicleType,
+        vehicle_model: vehicleModel,
+        phone_number: phoneNumber,
+        email: email,
+        district: district,
       });
 
       if (response.status === 201) {
         Alert.alert('Success', 'Vehicle registered!');
         router.push('/home'); // Navigate to home page
       } else {
-        Alert.alert('Registration Failed', response.data?.error || 'Something went wrong');
+        Alert.alert('Registration Failed', response.data?.error || 'Something went wrong1');
       }
     } catch (error) {
+      console.error('Vehicle Registration Error:', error.response?.data || error.message);
       Alert.alert('Registration Failed', error.response?.data?.error || 'Something went wrong.');
+
     }
   };
 
@@ -88,13 +81,13 @@ const ownerNameRef = useRef('');
           <View style={styles.form}>
             <View style={styles.inp}>
               <Text style={styles.text}>Owner Name</Text>
-              <Input placeholder='Owner Name' onChangeText={(value) => (ownerNameRef.current = value)} />
+              <Input placeholder='Owner Name' value={ownerName} onChangeText={setOwnerName} />
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>Vehicle Type</Text>
               <View style={styles.pic}>
-                <Picker  onChangeText={(value) => (vehicleTypeRef.current = value)}>
+                <Picker selectedValue={vehicleType} onValueChange={setVehicleType}>
                   <Picker.Item label="Select Vehicle Type" value="" />
                   <Picker.Item label="Ambulance" value="Ambulance" />
                   <Picker.Item label="Fire Truck" value="Fire Truck" />
@@ -112,23 +105,23 @@ const ownerNameRef = useRef('');
 
             <View style={styles.inp}>
               <Text style={styles.text}>Vehicle Model</Text>
-              <Input placeholder='Vehicle Model'  onChangeText={(value) => (vehicleModelRef.current = value)} />
+              <Input placeholder='Vehicle Model' value={vehicleModel} onChangeText={setVehicleModel} />
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>Phone Number</Text>
-              <Input placeholder='Phone Number' keyboardType="numeric"  onChangeText={(value) => (phoneNumberRef.current = value)} />
+              <Input placeholder='Phone Number' keyboardType="numeric" value={phoneNumber} onChangeText={setPhoneNumber} />
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>Email</Text>
-              <Input placeholder='Email' keyboardType="email-address"  onChangeText={(value) => (emailRef.current = value)} />
+              <Input placeholder='Email' keyboardType="email-address" value={email} onChangeText={setEmail} />
             </View>
 
             <View style={styles.inp}>
               <Text style={styles.text}>District</Text>
               <View style={styles.pic}>
-                <Picker  onChangeText={(value) => (districtRef.current = value)}>
+                <Picker selectedValue={district} onValueChange={setDistrict}>
                   <Picker.Item label="Select District" value="" />
                   <Picker.Item label="Thiruvananthapuram" value="Thiruvananthapuram" />
                   <Picker.Item label="Kollam" value="Kollam" />
