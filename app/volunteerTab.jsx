@@ -39,7 +39,7 @@ const volunteerTab = () => {
               <Text style={styles.text}>Organization Registration</Text>
           </View>
           </Pressable>
-          <Pressable onPress={()=>router.push('')} style={({ pressed }) => [
+          <Pressable onPress={()=>router.push('organizationList')} style={({ pressed }) => [
               styles.icon,
               pressed && { opacity: 0.5 },
             ]}>
