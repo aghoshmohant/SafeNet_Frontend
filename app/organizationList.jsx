@@ -7,11 +7,11 @@ import { useRouter } from 'expo-router';
 
 const organizationList = () => {
   const organizations = [
-    { name: 'Red Cross', phone: '9876543210', email: 'contact@redcross.org', district: 'Manhattan', state: 'New York' },
-    { name: 'Disaster Relief Fund', phone: '9123456789', email: 'help@drf.org', district: 'Downtown', state: 'California' },
-    { name: 'Global Aid', phone: '9012345678', email: 'support@globalaid.org', district: 'South Side', state: 'Illinois' },
-    { name: 'Relief Corps', phone: '9871234567', email: 'info@reliefcorps.org', district: 'East End', state: 'Texas' },
-    { name: 'Humanitarian Help', phone: '9543216789', email: 'assistance@humanhelp.org', district: 'North Gate', state: 'Arizona' },
+    { name: 'Red Cross', phone: '9876543210', email: 'contact@redcross.org', district: 'Manhattan' },
+    { name: 'Disaster Relief Fund', phone: '9123456789', email: 'help@drf.org', district: 'Downtown' },
+    { name: 'Global Aid', phone: '9012345678', email: 'support@globalaid.org', district: 'South Side' },
+    { name: 'Relief Corps', phone: '9871234567', email: 'info@reliefcorps.org', district: 'East End' },
+    { name: 'Humanitarian Help', phone: '9543216789', email: 'assistance@humanhelp.org', district: 'North Gate' },
   ];
 
   const router = useRouter();
@@ -19,9 +19,7 @@ const organizationList = () => {
 
   const filterOrganizations = () => {
     return organizations.filter((org) =>
-      org.district.toLowerCase().includes(searchText.toLowerCase()) ||
-      org.state.toLowerCase().includes(searchText.toLowerCase()) ||
-      searchText === ''
+      org.district.toLowerCase().includes(searchText.toLowerCase()) || searchText === ''
     );
   };
 
@@ -45,7 +43,7 @@ const organizationList = () => {
           <View style={styles.body}>
             <TextInput
               style={styles.searchBar}
-              placeholder="Search by District or State"
+              placeholder="Search by District"
               value={searchText}
               onChangeText={(text) => setSearchText(text)}
             />
@@ -53,20 +51,18 @@ const organizationList = () => {
             <ScrollView style={styles.listContainer}>
               {filterOrganizations().map((org, index) => (
                 <View key={index} style={styles.orgCard}>
+                  <View style={styles.buttonContainer}><TouchableOpacity onPress={() => handleEmail(org.email)}>
+                      <Image source={require('../assets/images/email.png')} style={styles.icon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleCall(org.phone)}>
+                      <Image source={require('../assets/images/phone.png')} style={styles.icon} />
+                    </TouchableOpacity>
+                  </View>
                   <View style={styles.orgInfo}>
                     <Text style={styles.orgName}>{org.name}</Text>
                     <Text style={styles.orgDetails}>District: {org.district}</Text>
-                    <Text style={styles.orgDetails}>State: {org.state}</Text>
                     <Text style={styles.orgDetails}>{org.phone}</Text>
                     <Text style={styles.orgDetails}>{org.email}</Text>
-                  </View>
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.callButton} onPress={() => handleCall(org.phone)}>
-                      <Text style={styles.buttonText}>Call</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.emailButton} onPress={() => handleEmail(org.email)}>
-                      <Text style={styles.buttonText}>Email</Text>
-                    </TouchableOpacity>
                   </View>
                 </View>
               ))}
@@ -121,9 +117,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
     marginVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   orgInfo: {
-    marginBottom: 10,
+    marginLeft: 15,
   },
   orgName: {
     fontSize: 18,
@@ -136,23 +134,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  callButton: {
-    backgroundColor: '#d9534f',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  emailButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  icon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    marginRight: 10,
   },
 });

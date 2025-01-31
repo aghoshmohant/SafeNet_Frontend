@@ -115,10 +115,25 @@ const signup = () => {
             </View>
 
             <View style={styles.inp}>
-              <Text style={styles.text}>Blood Group</Text>
-              <Input placeholder="Blood Group" />
-            </View>
-
+          <Text style={styles.text}>Blood Group</Text>
+          <View style={styles.pic}>
+          <Picker
+            selectedValue={selectedLanguage}
+             onValueChange={(itemValue, itemIndex) =>
+             setSelectedLanguage(itemValue)
+             }>
+        <Picker.Item label="Select Blood Group" value="null" style={{color:'rgba(0, 0, 0, 0.5)'}} />
+        <Picker.Item label="A+" value="A+" />
+        <Picker.Item label="A-" value="A-" />
+        <Picker.Item label="B+" value="B+" />
+        <Picker.Item label="B-" value="B-" />
+        <Picker.Item label="O+" value="O+" />
+        <Picker.Item label="O-" value="O-" />
+        <Picker.Item label="AB+" value="AB+" />
+        <Picker.Item label="AB-" value="AB-" />
+        </Picker>
+        </View>
+        </View>
             <View style={styles.check}>
               <Checkbox value={isSelected}
                onValueChange={setSelection} 

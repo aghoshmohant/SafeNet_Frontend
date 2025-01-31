@@ -8,8 +8,6 @@ import { useRouter } from 'expo-router';
 const bloodBank = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Blood bank data with 150 entries from various states and districts
   const [bloodBanks, setBloodBanks] = useState([
     // Thiruvananthapuram
     { id: '1', district: 'Thiruvananthapuram', name: 'Women & Children Hospital, Thycaud', number: '0471-2323457' },
