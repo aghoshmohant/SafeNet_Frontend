@@ -9,9 +9,8 @@ import Input from '../components/Input';
 import SignIn from '../components/SignIn';
 import Checkbox from 'expo-checkbox';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { Picker } from '@react-native-picker/picker'
 import axios from '../config/axiosConfig'; // Import your axios instance
-
-
 const signup = () => {
   const router = useRouter();
 
@@ -28,7 +27,7 @@ const signup = () => {
   const [date, setDate] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState(''); // State to hold the formatted date
   const [showPicker, setShowPicker] = useState(false);
-  const [isSelected, setSelection] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState();
 
   const toggleDatePicker = () => {
     setShowPicker(!showPicker);
@@ -145,17 +144,32 @@ const signup = () => {
               <Text style={styles.text}>Phone Number</Text>
               <Input placeholder="Phone Number" keyboardType="numeric" onChangeText={(value) => (phoneRef.current = value)} />
             </View>
-
-            <View style={styles.inp}>
-              <Text style={styles.text}>District</Text>
-              <Input placeholder="District" onChangeText={(value) => (districtRef.current = value)}/>
-            </View>
-
-            <View style={styles.inp}>
-              <Text style={styles.text}>State</Text>
-              <Input placeholder="State" onChangeText={(value) => (stateRef.current = value)} />
-            </View>
-
+          <View style={styles.inp}>
+          <Text style={styles.text}>District</Text>
+          <View style={styles.pic}>
+          <Picker
+            selectedValue={selectedLanguage}
+             onValueChange={(itemValue, itemIndex) =>
+             setSelectedLanguage(itemValue)
+             }>
+              <Picker.Item label="District" value="null" style={{color:'rgba(0, 0, 0, 0.5)'}} />
+              <Picker.Item label="Thiruvananthapuram" value="Thiruvananthapuram" />
+              <Picker.Item label="Kollam" value="Kollam" />
+              <Picker.Item label="Pathanamthitta" value="Pathanamthitta" />
+              <Picker.Item label="Alappuzha" value="Alappuzha" />
+              <Picker.Item label="Kottayam" value="Kottayam" />
+              <Picker.Item label="Idukki" value="Idukki" />
+              <Picker.Item label="Ernakulam" value="Ernakulam" />
+              <Picker.Item label="Thrissur" value="Thrissur" />
+              <Picker.Item label="Palakkad" value="Palakkad" />
+              <Picker.Item label="Malappuram" value="Malappuram" />
+              <Picker.Item label="Kozhikode" value="Kozhikode" />
+              <Picker.Item label="Wayanad" value="Wayanad" />
+              <Picker.Item label="Kannur" value="Kannur" />
+              <Picker.Item label="Kasaragod" value="Kasaragod" />
+          </Picker>
+          </View>
+          </View>
             <View style={styles.inp}>
               <Text style={styles.text}>Date Of Birth</Text>
 
@@ -175,10 +189,25 @@ const signup = () => {
             </View>
 
             <View style={styles.inp}>
-              <Text style={styles.text}>Blood Group</Text>
-              <Input placeholder="Blood Group" onChangeText={(value) => (bloodGroupRef.current = value)} />
-            </View>
-
+          <Text style={styles.text}>Blood Group</Text>
+          <View style={styles.pic}>
+          <Picker
+            selectedValue={selectedLanguage}
+             onValueChange={(itemValue, itemIndex) =>
+             setSelectedLanguage(itemValue)
+             }>
+        <Picker.Item label="Select Blood Group" value="null" style={{color:'rgba(0, 0, 0, 0.5)'}} />
+        <Picker.Item label="A+" value="A+" />
+        <Picker.Item label="A-" value="A-" />
+        <Picker.Item label="B+" value="B+" />
+        <Picker.Item label="B-" value="B-" />
+        <Picker.Item label="O+" value="O+" />
+        <Picker.Item label="O-" value="O-" />
+        <Picker.Item label="AB+" value="AB+" />
+        <Picker.Item label="AB-" value="AB-" />
+        </Picker>
+        </View>
+        </View>
             <View style={styles.check}>
               <Checkbox value={isSelected}
                onValueChange={setSelection} 
@@ -276,4 +305,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontWeight: 'bold',
   },
+  pic:{
+    height:hp(7),
+    borderWidth:0.4,
+    borderColor:'black',
+    borderRadius:10,
+    borderCurve:'continuous',
+    marginHorizontal:15,
+    marginTop:0,
+    gap:12,}
 });
