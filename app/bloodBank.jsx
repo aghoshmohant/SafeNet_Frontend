@@ -8,49 +8,92 @@ import { useRouter } from 'expo-router';
 const bloodBank = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Blood bank data with 150 entries from various states and districts
   const [bloodBanks, setBloodBanks] = useState([
-    { id: '1', state: 'Kerala', district: 'Thiruvananthapuram', name: 'Women & Children Hospital, Thycaud', number: '0471-2323457' },
-    { id: '2', state: 'Kerala', district: 'Thiruvananthapuram', name: 'Taluk Head Quarter Hospital, Chiryinkil', number: '0470-2646565' },
-    { id: '3', state: 'Kerala', district: 'Thiruvananthapuram', name: 'Medical College Hospital, Blood Bank', number: '0471-2528230' },
-    { id: '4', state: 'Kerala', district: 'Kollam', name: 'Taluk Head Quarters Hospital, Kottakkara', number: '9447223157' },
-    { id: '5', state: 'Tamil Nadu', district: 'Chennai', name: 'Madras Medical College', number: '044-25305604' },
-    { id: '6', state: 'Tamil Nadu', district: 'Coimbatore', name: 'Coimbatore Medical College', number: '0422-2572467' },
-    { id: '7', state: 'Maharashtra', district: 'Mumbai', name: 'Jaslok Hospital', number: '022-66575544' },
-    { id: '8', state: 'Maharashtra', district: 'Pune', name: 'Sahyadri Hospital', number: '020-66420750' },
-    { id: '9', state: 'Delhi', district: 'Delhi', name: 'AIIMS Blood Bank', number: '011-26588500' },
-    { id: '10', state: 'Uttar Pradesh', district: 'Lucknow', name: 'King George’s Medical University', number: '0522-2257551' },
-    { id: '11', state: 'Uttar Pradesh', district: 'Varanasi', name: 'Banaras Hindu University', number: '0542-2367555' },
-    { id: '12', state: 'West Bengal', district: 'Kolkata', name: 'Sadar Hospital', number: '033-22173291' },
-    { id: '13', state: 'Rajasthan', district: 'Jaipur', name: 'SMS Medical College', number: '0141-2710017' },
-    { id: '14', state: 'Andhra Pradesh', district: 'Visakhapatnam', name: 'King George Hospital', number: '0891-2741111' },
-    { id: '15', state: 'Gujarat', district: 'Ahmedabad', name: 'Sardar Vallabhbhai Patel Institute of Medical Sciences', number: '079-22684443' },
-    { id: '16', state: 'Karnataka', district: 'Bangalore', name: 'St. John’s Medical College', number: '080-22066750' },
-    { id: '17', state: 'Kerala', district: 'Kozhikode', name: 'Govt. General Hospital', number: '0495-2365917' },
-    { id: '18', state: 'Kerala', district: 'Palakkad', name: 'District Hospital', number: '0491-2534524' },
-    { id: '19', state: 'Kerala', district: 'Kollam', name: 'Govt Hospital, Punalur', number: '9387324072' },
-    { id: '20', state: 'Kerala', district: 'Pathanamthitta', name: 'General Hospital, Pathanamthitta', number: '9744837560' },
-    { id: '21', state: 'Madhya Pradesh', district: 'Bhopal', name: 'Hamidia Hospital', number: '0755-2662222' },
-    { id: '22', state: 'Madhya Pradesh', district: 'Indore', name: 'MGM Medical College', number: '0731-2530010' },
-    { id: '23', state: 'Bihar', district: 'Patna', name: 'Patna Medical College', number: '0612-2279381' },
-    { id: '24', state: 'Haryana', district: 'Chandigarh', name: 'PGI Chandigarh', number: '0172-2755555' },
-    { id: '25', state: 'Uttarakhand', district: 'Dehradun', name: 'Doon Medical College', number: '0135-2752345' },
-    { id: '26', state: 'Jharkhand', district: 'Ranchi', name: 'RIMS Ranchi', number: '0651-2510584' },
-    { id: '27', state: 'Odisha', district: 'Bhubaneswar', name: 'SCB Medical College', number: '0674-2536677' },
-    { id: '28', state: 'Assam', district: 'Guwahati', name: 'Gauhati Medical College', number: '0361-2584078' },
-    { id: '29', state: 'Nagaland', district: 'Kohima', name: 'Naga Hospital', number: '0370-2274137' },
-    { id: '30', state: 'Sikkim', district: 'Gangtok', name: 'STNM Hospital', number: '03592-207000' },
-    // Add additional blood banks here until 150 entries...
-    // Example: Continue with similar entries for different states and cities...
+    // Thiruvananthapuram
+    { id: '1', district: 'Thiruvananthapuram', name: 'Women & Children Hospital, Thycaud', number: '0471-2323457' },
+    { id: '2', district: 'Thiruvananthapuram', name: 'Taluk Head Quarter Hospital, Chiryinkil', number: '0470-2646565' },
+    { id: '3', district: 'Thiruvananthapuram', name: 'Medical College Hospital, Blood Bank', number: '0471-2528230' },
+    { id: '4', district: 'Thiruvananthapuram', name: 'Regional Cancer Centre, Thiruvananthapuram', number: '0471-2447202' },
+    { id: '5', district: 'Thiruvananthapuram', name: 'Sree Chitra Tirunal Institute for Medical Sciences and Technology', number: '0471-2520547' },
+  
+    // Kollam
+    { id: '6', district: 'Kollam', name: 'Taluk Head Quarters Hospital, Kottakkara', number: '9447223157' },
+    { id: '7', district: 'Kollam', name: 'Govt Hospital, Punalur', number: '9387324072' },
+    { id: '8', district: 'Kollam', name: 'Kollam District Hospital', number: '0474-2796214' },
+    { id: '9', district: 'Kollam', name: 'Kerala Institute of Medical Sciences', number: '0474-2750460' },
+    { id: '10', district: 'Kollam', name: 'Sree Chitra Hospital', number: '0474-2740811' },
+  
+    // Pathanamthitta
+    { id: '11', district: 'Pathanamthitta', name: 'General Hospital, Pathanamthitta', number: '9744837560' },
+    { id: '12', district: 'Pathanamthitta', name: 'Pathanamthitta District Hospital', number: '0468-2221020' },
+    { id: '13', district: 'Pathanamthitta', name: 'Medical College, Kottayam', number: '0481-2599046' },
+    { id: '14', district: 'Pathanamthitta', name: 'Pushpagiri Medical College', number: '0469-2675200' },
+    { id: '15', district: 'Pathanamthitta', name: 'Karunagappally Taluk Hospital', number: '0476-2632100' },
+  
+    // Kozhikode
+    { id: '16', district: 'Kozhikode', name: 'Govt. General Hospital', number: '0495-2365917' },
+    { id: '17', district: 'Kozhikode', name: 'Medical College Hospital Blood Bank', number: '0495-2350216' },
+    { id: '18', district: 'Kozhikode', name: 'Baby Memorial Hospital', number: '0495-2720090' },
+    { id: '19', district: 'Kozhikode', name: 'MIMS Blood Bank', number: '0495-2383001' },
+    { id: '20', district: 'Kozhikode', name: 'Sree Gokulam Medical College', number: '0495-2310011' },
+  
+    // Palakkad
+    { id: '21', district: 'Palakkad', name: 'District Hospital', number: '0491-2534524' },
+    { id: '22', district: 'Palakkad', name: 'Palakkad Government Medical College', number: '0491-2553406' },
+    { id: '23', district: 'Palakkad', name: 'Karunya Medical College', number: '0491-2902123' },
+    { id: '24', district: 'Palakkad', name: 'Lions Blood Bank, Palakkad', number: '0491-2536767' },
+    { id: '25', district: 'Palakkad', name: 'PVS Memorial Hospital', number: '0491-2537888' },
+  
+    // Ernakulam
+    { id: '26', district: 'Ernakulam', name: 'Lisie Hospital Blood Bank', number: '0484-2400812' },
+    { id: '27', district: 'Ernakulam', name: 'Amrita Institute of Medical Sciences Research Centre Blood Bank', number: '0484-4001234' },
+    { id: '28', district: 'Ernakulam', name: 'Medical College Hospital, Ernakulam', number: '0484-2442371' },
+    { id: '29', district: 'Ernakulam', name: 'Rajagiri Hospital Blood Bank', number: '0484-2668888' },
+    { id: '30', district: 'Ernakulam', name: 'Kochi General Hospital Blood Bank', number: '0484-2368240' },
+  
+    // Idukki
+    { id: '31', district: 'Idukki', name: 'District Hospital, Idukki', number: '04862-229000' },
+    { id: '32', district: 'Idukki', name: 'Medical College Hospital, Kottayam', number: '0481-2599046' },
+    { id: '33', district: 'Idukki', name: 'Aster MIMS Blood Bank', number: '0484-2402561' },
+    { id: '34', district: 'Idukki', name: 'Kolenchery Medical College Hospital', number: '0484-2453499' },
+    { id: '35', district: 'Idukki', name: 'Kottayam District Hospital', number: '0481-2585100' },
+  
+    // Alappuzha
+    { id: '36', district: 'Alappuzha', name: 'Alappuzha District Hospital', number: '0477-2250482' },
+    { id: '37', district: 'Alappuzha', name: 'Medical College Hospital, Alappuzha', number: '0477-2252110' },
+    { id: '38', district: 'Alappuzha', name: 'Asha Hospital, Alappuzha', number: '0477-2235365' },
+    { id: '39', district: 'Alappuzha', name: 'Kuttanadu Blood Bank', number: '0477-2285363' },
+    { id: '40', district: 'Alappuzha', name: 'Sunrise Hospital Blood Bank', number: '0477-2235355' },
+  
+    // Kottayam
+    { id: '41', district: 'Kottayam', name: 'Kottayam Medical College', number: '0481-2599046' },
+    { id: '42', district: 'Kottayam', name: 'Kottayam District Hospital', number: '0481-2585100' },
+    { id: '43', district: 'Kottayam', name: 'Pushpagiri Medical College', number: '0481-2239050' },
+    { id: '44', district: 'Kottayam', name: 'Mariam Thressia Hospital', number: '0481-2371234' },
+    { id: '45', district: 'Kottayam', name: 'St. George’s Medical College Hospital', number: '0481-2275210' },
+  
+    // Thrissur
+    { id: '46', district: 'Thrissur', name: 'Medical College Hospital, Thrissur', number: '0487-2333185' },
+    { id: '47', district: 'Thrissur', name: 'District Hospital, Thrissur', number: '0487-2331020' },
+    { id: '48', district: 'Thrissur', name: 'Sree Chitra Hospital', number: '0487-2322222' },
+    { id: '49', district: 'Thrissur', name: 'Irinjalakuda Taluk Hospital', number: '0480-2821620' },
+    { id: '50', district: 'Thrissur', name: 'Holy Cross Hospital', number: '0487-2322892' },
+  
+    // Malappuram
+    { id: '51', district: 'Malappuram', name: 'District Hospital, Malappuram', number: '0483-2737025' },
+    { id: '52', district: 'Malappuram', name: 'Medical College Hospital, Manjeri', number: '0483-2760919' },
+    { id: '53', district: 'Malappuram', name: 'Aster MIMS, Kottakkal', number: '0483-2840600' },
+    { id: '54', district: 'Malappuram', name: 'Malabar Institute of Medical Sciences', number: '0483-2736721' },
+   
+  
   ]);
+  
 
   // Filtered blood bank data based on search query (excluding number field)
   const filteredData = bloodBanks.filter(
     (item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.district.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.state.toLowerCase().includes(searchQuery.toLowerCase())
+      item.district.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleCall = (number) => {
@@ -83,7 +126,7 @@ const bloodBank = () => {
           renderItem={({ item }) => (
             <View style={styles.item}>
               <View style={styles.info}>
-                <Text style={styles.district}>{item.district}, {item.state}</Text>
+                <Text style={styles.district}>{item.district}</Text>
                 <Text style={styles.name}>{item.name}</Text>
                 <Text style={styles.number}>{item.number}</Text>
               </View>
